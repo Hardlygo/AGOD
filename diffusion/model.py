@@ -30,9 +30,9 @@ class MLP(nn.Module):
         self.final_layer = nn.Tanh()
 
     def forward(self, x, time, state):
-        t = self.time_mlp(time)
+        t = self.time_mlp(time) #一个神经网络
         state = state.reshape(state.size(0), -1)
-        x = torch.cat([x, t, state], dim=1)
+        x = torch.cat([x, t, state], dim=1) #三个输入组合到一起
         x = self.mid_layer(x)
         return self.final_layer(x)
 

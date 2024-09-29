@@ -176,7 +176,7 @@ class DiffusionSAC(BasePolicy):
             **kwargs: Any
     ) -> Dict[str, List[float]]:
         # update critic network
-        critic_loss = self._update_critic(batch)
+        critic_loss = self._update_critic(batch) #这个一定运行
         # update actor network
         pg_loss = self._update_policy(batch, update=False)
         bc_loss = self._update_bc(batch, update=False) if self._pg_coef < 1. else 0.

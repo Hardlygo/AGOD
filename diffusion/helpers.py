@@ -6,6 +6,7 @@ import torch.nn.functional as F
 
 
 class SinusoidalPosEmb(nn.Module):
+    #正弦位置编码（Sinusoidal Positional Embeddings
     def __init__(self, dim):
         super().__init__()
         self.dim = dim

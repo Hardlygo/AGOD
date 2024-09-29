@@ -66,9 +66,9 @@ def get_args():
 
 def main(args=get_args()):
     # create environments
-    env, train_envs, test_envs = make_env(args.task, args.training_num, args.test_num)
-    args.state_shape = int(np.prod(env.observation_space.shape))
-    args.action_shape = env.action_space.n
+    env, train_envs, test_envs = make_env(args.task, args.training_num, args.test_num) #默认是task=AaaS，training_num=1
+    args.state_shape = int(np.prod(env.observation_space.shape))#np.prod是计算数组内元素乘积，这里应该是计算放入那个网络的维度
+    args.action_shape = env.action_space.n #这里只有一个动作，这个动作可以有多种选择
     args.max_action = 1.
     print(f'Environment Name: {args.task}')
     print(f'Algorithm Name: DiffusionSAC')
@@ -92,14 +92,14 @@ def main(args=get_args()):
         state_dim=args.state_shape,
         action_dim=args.action_shape,
         model=actor_net,
-        max_action=args.max_action,
-        beta_schedule=args.beta_schedule,
-        n_timesteps=args.n_timesteps
+        max_action=args.max_action,#max_action = 1.
+        beta_schedule=args.beta_schedule, #vp
+        n_timesteps=args.n_timesteps## for diffusion chain 默认5
     ).to(args.device)
     actor_optim = torch.optim.Adam(
         actor.parameters(),
         lr=args.actor_lr,
-        weight_decay=args.wd
+        weight_decay=args.wd #1e-4
     )
 
     # create critic
@@ -111,7 +111,7 @@ def main(args=get_args()):
     critic_optim = torch.optim.Adam(
         critic.parameters(),
         lr=args.critic_lr,
-        weight_decay=args.wd
+        weight_decay=args.wd #1e-4
     )
 
     # log

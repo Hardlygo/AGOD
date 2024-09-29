@@ -10,7 +10,7 @@ class AIGCEnv(gym.Env):
     def __init__(self):
         self._swarm_manager = SwarmManager()
         self._observation_space = Box(shape=self.state.shape, low=0, high=1)
-        self._action_space = Discrete(NUM_SERVICE_PROVIDERS)
+        self._action_space = Discrete(NUM_SERVICE_PROVIDERS)#一个动作，有NUM_SERVICE_PROVIDERS种可能
 
         self._num_steps = 0
         self._terminated = False
